@@ -9,12 +9,16 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fog.racegame.models.Chevrolet;
+import com.fog.racegame.models.Tree;
 
 public class GameScreen implements Screen {
 
     private Texture carTexture;
+    private Texture treeTexture;
     private SpriteBatch batch;
     private Chevrolet chevrolet;
+    private Tree tree1;
+    private Tree tree2;
     private OrthographicCamera camera;
 
     public static float deltaCFF;
@@ -22,9 +26,13 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         batch = new SpriteBatch();
-        carTexture = new Texture(Gdx.files.internal("zhuzhik.jpg"));
+        carTexture = new Texture(Gdx.files.internal("zhuzhik.png"));
         carTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        chevrolet = new Chevrolet(carTexture, 0, 0, 3f , 3f * 2.1f);
+        chevrolet = new Chevrolet(carTexture, 0, 0, 1f , 1f * 2.1f);
+        treeTexture = new Texture(Gdx.files.internal("tree.png"));
+        treeTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        tree1 = new Tree(treeTexture, 1,1, 1f,1f);
+        tree2 = new Tree(treeTexture, -1,-2, 1f,1f);
     }
 
     @Override
@@ -36,8 +44,11 @@ public class GameScreen implements Screen {
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        tree1.draw(batch);
+        tree2.draw(batch);
         chevrolet.draw(batch);
         batch.end();
+
     }
 
     @Override
